@@ -126,7 +126,7 @@ function pasteCallback(imageDataBase64){
                 chrome.storage.local.set(store,function(err){
                     if (chrome.runtime.lastError){
 
-                        if (chrome.runtime.lastError.message == "QUOTA_BYTES_PER_ITEM quota exceeded"){
+                        if (chrome.runtime.lastError.message == "QUOTA_BYTES quota exceeded"){
                             alert("Text is above the limit. It's not saved in browser")
                         }
                     }
