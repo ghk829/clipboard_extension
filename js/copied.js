@@ -109,6 +109,16 @@ function pasteCallback(imageDataBase64){
             img_.width="70";
             img.appendChild(img_)
             tr.appendChild(img)
+        } else if (value_.value.startsWith("https://youtu.be")){
+            var td = document.createElement("td")
+            var youtube = document.createElement("iframe");
+            var src = "https://www.youtube.com/embed/"+value_.value.split("youtu.be/")[1]
+            youtube.src= src
+            youtube.height="70";
+            youtube.width="70";
+            td.appendChild(youtube);
+            tr.appendChild(td)
+
         }
 
 
@@ -180,6 +190,16 @@ chrome.storage.sync.get(null,function(elements){
             img_.width="70";
             img.appendChild(img_)
             tr.appendChild(img)
+        } else if (value_.value.startsWith("https://youtu.be")){
+            var td = document.createElement("td")
+            var youtube = document.createElement("iframe");
+            var src = "https://www.youtube.com/embed/"+value_.value.split("youtu.be/")[1]
+            youtube.src= src
+            youtube.height="70";
+            youtube.width="70";
+            td.appendChild(youtube);
+            tr.appendChild(td)
+
         }
         
         var items = document.getElementById("items");
@@ -226,6 +246,16 @@ chrome.storage.local.get(null,function(elements){
             img_.width="70";
             img.appendChild(img_)
             tr.appendChild(img)
+        } else if (value_.value.startsWith("https://youtu.be")){
+            var td = document.createElement("td")
+            var youtube = document.createElement("iframe");
+            var src = "https://www.youtube.com/embed/"+value_.value.split("youtu.be/")[1]
+            youtube.src= src
+            youtube.height="70";
+            youtube.width="70";
+            td.appendChild(youtube);
+            tr.appendChild(td)
+
         }
         var items = document.getElementById("items");
         items.appendChild(tr);
