@@ -106,10 +106,20 @@ function pasteCallback(imageDataBase64){
         store[key] = imageDataBase64;
         chrome.storage.sync.set(store, function(err) {
             if(chrome.runtime.lastError) {
-
+                
                 if (chrome.runtime.lastError.message == "QUOTA_BYTES_PER_ITEM quota exceeded"){
-                    alert("Text is above the limit. It's not synchronized by browsers")
+                    alert("Text is above the limit. It's not synced by browsers")
                 }
+
+                chrome.storage.local.set(store,function(err){
+                    if (chrome.runtime.lastError){
+
+                        if (chrome.runtime.lastError.message == "QUOTA_BYTES_PER_ITEM quota exceeded"){
+                            alert("Text is above the limit. It's not saved in browser")
+                        }
+                    }
+                })
+
               }
 
         });
@@ -123,6 +133,40 @@ window.addEventListener("paste", function(e){
 
 
 chrome.storage.sync.get(null,function(elements){
+
+    for (e in elements){
+        var tr = document.createElement("tr");
+        var name = document.createElement("td");
+        var name_ = document.createTextNode(e)
+        name.appendChild(name_);
+        var value = document.createElement("td");
+        var button = document.createElement("button");
+        button.type= "button";
+        button.className = "btn btn-primary";
+        button.innerHTML = "copy to clipboard!"
+        $(button).bind("click",function(e){
+            var input = $(this).next()[0]
+            input.select();
+            document.execCommand("copy");
+            /* Alert the copied text */
+            alert("Copied the text");
+        });
+
+        value.appendChild(button);
+        var value_ = document.createElement("input")
+        value_.value= elements[e];
+        value.appendChild(value_);
+        tr.appendChild(name);
+        tr.appendChild(value);
+        var items = document.getElementById("items");
+        items.appendChild(tr);
+    }
+
+})
+
+
+
+chrome.storage.local.get(null,function(elements){
 
     for (e in elements){
         var tr = document.createElement("tr");
