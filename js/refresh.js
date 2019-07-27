@@ -1,5 +1,6 @@
 function refreshStorage(){
     chrome.storage.sync.clear();
+    chrome.storage.local.clear();
     alert("Refresh!!")
     window.location.reload();
 }
