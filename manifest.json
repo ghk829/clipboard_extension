@@ -1,26 +1,22 @@
 {
-  "name": "select schedule",
-  "description" : "Base Level Extension",
+  "name": "clipboard extension",
+  "description" : "It's made for controlling clipboard in chrome browser",
   "version": "1.0",
   "browser_action": {
-    "default_popup": "hello.html",
-    "default_icon": "hello_extensions.png"
+    "default_popup": "copy_extension.html",
+    "default_icon": "logo.png"
   },
   "icons":{
     "16":"logo-1616.png"
   },
   "permissions": [
-    "contextMenus",
-    "background",
     "storage",
+    "https://*.cloudflare.com/",
+    "https://*.bootstrapcdn.com/",
     "https://*.herokuapp.com/",
     "https://*.google.com/"
   ],
-  "content_security_policy": "script-src 'self' https://apis.google.com/; object-src 'self'",
-  "background": {
-    "scripts": ["hello.js"],
-    "persistent": true
-  },
+  "content_security_policy": "script-src 'self' https://cdnjs.cloudflare.com https://ajax.googleapis.com https://maxcdn.bootstrapcdn.com/ https://apis.google.com/; object-src 'self'",
   "manifest_version": 2,
   "commands": {
     "_execute_browser_action": {
@@ -28,7 +24,7 @@
         "default": "Ctrl+Shift+F",
         "mac": "MacCtrl+Shift+F"
       },
-      "description": "Opens hello.html"
+      "description": "Opens Clipboards"
     }
   }
 }
