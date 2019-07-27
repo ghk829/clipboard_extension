@@ -104,8 +104,14 @@ function pasteCallback(imageDataBase64){
         items.appendChild(tr);
         var store = {}
         store[key] = imageDataBase64;
-        chrome.storage.sync.set(store, function() {
-            console.log('Value is set to ' + imageDataBase64);
+        chrome.storage.sync.set(store, function(err) {
+            if(chrome.runtime.lastError) {
+
+                if (chrome.runtime.lastError.message == "QUOTA_BYTES_PER_ITEM quota exceeded"){
+                    alert("Text is above the limit. It's not synchronized by browsers")
+                }
+              }
+
         });
 
     }}
