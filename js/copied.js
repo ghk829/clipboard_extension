@@ -105,12 +105,12 @@ function pasteCallback(imageDataBase64){
             var img = document.createElement("td");
             var img_ = document.createElement("img");
             img_.src= value_.value;
-            img_.height="50";
-            img_.width="50";
+            img_.height="70";
+            img_.width="70";
             img.appendChild(img_)
             tr.appendChild(img)
         }
-        
+
 
         var items = document.getElementById("items");
         items.appendChild(tr);
@@ -176,8 +176,8 @@ chrome.storage.sync.get(null,function(elements){
             var img = document.createElement("td");
             var img_ = document.createElement("img");
             img_.src= value_.value;
-            img_.height="50";
-            img_.width="50";
+            img_.height="70";
+            img_.width="70";
             img.appendChild(img_)
             tr.appendChild(img)
         }
@@ -222,8 +222,8 @@ chrome.storage.local.get(null,function(elements){
             var img = document.createElement("td");
             var img_ = document.createElement("img");
             img_.src= value_.value;
-            img_.height="50";
-            img_.width="50";
+            img_.height="70";
+            img_.width="70";
             img.appendChild(img_)
             tr.appendChild(img)
         }
