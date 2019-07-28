@@ -10,7 +10,7 @@ clipboard app for chrome extension
 
 ## Usage
 
-1. go to release on this repogitory
+1. go to **release** on this repogitory
 
 2. download .zip or tar.gz fie
 
