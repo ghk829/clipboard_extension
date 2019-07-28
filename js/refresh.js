@@ -1,7 +1,7 @@
 function refreshStorage(){
     chrome.storage.sync.clear();
     chrome.storage.local.clear();
-    alert("Refresh!!")
+    alert("Clean All Clipboard!!")
     window.location.reload();
 }
 

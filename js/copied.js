@@ -5,6 +5,10 @@
  * @param callback 
  */
 
+toastr.options.positionClass = "toast-bottom-right"
+toastr.options.timeOut = 500;
+
+
 function retrieveImageFromClipboardAsBase64(pasteEvent, callback, imageFormat){
 	if(pasteEvent.clipboardData == false){
         if(typeof(callback) == "function"){
@@ -90,13 +94,14 @@ function pasteCallback(imageDataBase64){
             input.select();
             document.execCommand("copy");
             /* Alert the copied text */
-            alert("Copied the text");
+            toastr.info("Copied the text");
         });
         value.appendChild(button);
         var value_ = document.createElement("textarea")
         value_.value= imageDataBase64;
         value_.className = "form-control"
         value_.style = "resize : horizontal;width:150px;"
+        value_.readOnly = true;
         value.appendChild(value_);
         
         tr.appendChild(name);
@@ -131,18 +136,20 @@ function pasteCallback(imageDataBase64){
             if(chrome.runtime.lastError) {
                 
                 if (chrome.runtime.lastError.message == "QUOTA_BYTES_PER_ITEM quota exceeded"){
-                    alert("Text is above the limit. It's not synced by browsers")
+                    toastr.error("Text is above the limit. It's not synced by browsers")
                 }
 
                 chrome.storage.local.set(store,function(err){
                     if (chrome.runtime.lastError){
 
                         if (chrome.runtime.lastError.message == "QUOTA_BYTES quota exceeded"){
-                            alert("Text is above the limit. It's not saved in browser")
+                            toastr.error("Text is above the limit. It's not saved in browser")
                         }
                     }
                 })
 
+              } else {
+                  toastr.success("paste to clipboard")
               }
 
         });
@@ -172,15 +179,15 @@ chrome.storage.sync.get(null,function(elements){
             input.select();
             document.execCommand("copy");
             /* Alert the copied text */
-            alert("Copied the text");
+            toastr.info("Copied the text");
         });
 
         value.appendChild(button);
         var value_ = document.createElement("textarea")
         value_.value= elements[e];
         value_.className = "form-control"
-        value.className="form-group purple-border"
         value_.style = "resize : horizontal;width:150px;"
+        value_.readOnly = true;
         value.appendChild(value_);
 
         tr.appendChild(name);
@@ -231,7 +238,7 @@ chrome.storage.local.get(null,function(elements){
             input.select();
             document.execCommand("copy");
             /* Alert the copied text */
-            alert("Copied the text");
+            toastr.info("Copied the text");
         });
 
         value.appendChild(button);
@@ -239,6 +246,7 @@ chrome.storage.local.get(null,function(elements){
         value_.value= elements[e];
         value_.className = "form-control"
         value_.style = "resize : horizontal;width:150px;"
+        value_.readOnly = true;
         // value.className = "form-group shadow-textarea"
         value.appendChild(value_);
 
