@@ -4,10 +4,11 @@
   "version": "1.0",
   "browser_action": {
     "default_popup": "copy_extension.html",
-    "default_icon": "play_store.png"
+    "default_icon": "Icon-128.png"
   },
   "icons":{
-    "16":"Icon-16.png"
+    "16":"Icon-16.png",
+    "128":"Icon-128.png"
   },
   "permissions": [
     "storage",
