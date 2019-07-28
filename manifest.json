@@ -11,7 +11,7 @@
   },
   "permissions": [
     "storage",
-    "https://*.fontawesome.com",
+    "https://*.fontawesome.com/",
     "https://*.cloudflare.com/",
     "https://*.bootstrapcdn.com/",
     "https://*.herokuapp.com/",
