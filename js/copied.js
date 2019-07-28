@@ -84,7 +84,7 @@ function pasteCallback(imageDataBase64){
         var button = document.createElement("button");
         button.type= "button";
         button.className = "btn btn-primary";
-        button.innerHTML = "copy to clipboard!"
+        button.innerHTML = "copy"
         $(button).bind("click",function(e){
             var input = $(this).next()[0]
             input.select();
@@ -92,10 +92,11 @@ function pasteCallback(imageDataBase64){
             /* Alert the copied text */
             alert("Copied the text");
         });
-    
         value.appendChild(button);
-        var value_ = document.createElement("input")
+        var value_ = document.createElement("textarea")
         value_.value= imageDataBase64;
+        value_.className = "form-control"
+        value_.style = "resize : horizontal;width:150px;"
         value.appendChild(value_);
         
         tr.appendChild(name);
@@ -105,8 +106,8 @@ function pasteCallback(imageDataBase64){
             var img = document.createElement("td");
             var img_ = document.createElement("img");
             img_.src= value_.value;
-            img_.height="70";
-            img_.width="70";
+            img_.height="90";
+            img_.width="90";
             img.appendChild(img_)
             tr.appendChild(img)
         } else if (value_.value.startsWith("https://youtu.be")){
@@ -114,8 +115,8 @@ function pasteCallback(imageDataBase64){
             var youtube = document.createElement("iframe");
             var src = "https://www.youtube.com/embed/"+value_.value.split("youtu.be/")[1]
             youtube.src= src
-            youtube.height="70";
-            youtube.width="70";
+            youtube.height="90";
+            youtube.width="90";
             td.appendChild(youtube);
             tr.appendChild(td)
 
@@ -165,7 +166,7 @@ chrome.storage.sync.get(null,function(elements){
         var button = document.createElement("button");
         button.type= "button";
         button.className = "btn btn-primary";
-        button.innerHTML = "copy to clipboard!"
+        button.innerHTML = "copy"
         $(button).bind("click",function(e){
             var input = $(this).next()[0]
             input.select();
@@ -175,8 +176,11 @@ chrome.storage.sync.get(null,function(elements){
         });
 
         value.appendChild(button);
-        var value_ = document.createElement("input")
+        var value_ = document.createElement("textarea")
         value_.value= elements[e];
+        value_.className = "form-control"
+        value.className="form-group purple-border"
+        value_.style = "resize : horizontal;width:150px;"
         value.appendChild(value_);
 
         tr.appendChild(name);
@@ -186,8 +190,8 @@ chrome.storage.sync.get(null,function(elements){
             var img = document.createElement("td");
             var img_ = document.createElement("img");
             img_.src= value_.value;
-            img_.height="70";
-            img_.width="70";
+            img_.height="90";
+            img_.width="90";
             img.appendChild(img_)
             tr.appendChild(img)
         } else if (value_.value.startsWith("https://youtu.be")){
@@ -195,8 +199,8 @@ chrome.storage.sync.get(null,function(elements){
             var youtube = document.createElement("iframe");
             var src = "https://www.youtube.com/embed/"+value_.value.split("youtu.be/")[1]
             youtube.src= src
-            youtube.height="70";
-            youtube.width="70";
+            youtube.height="90";
+            youtube.width="90";
             td.appendChild(youtube);
             tr.appendChild(td)
 
@@ -221,7 +225,7 @@ chrome.storage.local.get(null,function(elements){
         var button = document.createElement("button");
         button.type= "button";
         button.className = "btn btn-primary";
-        button.innerHTML = "copy to clipboard!"
+        button.innerHTML = "copy"
         $(button).bind("click",function(e){
             var input = $(this).next()[0]
             input.select();
@@ -231,8 +235,11 @@ chrome.storage.local.get(null,function(elements){
         });
 
         value.appendChild(button);
-        var value_ = document.createElement("input")
+        var value_ = document.createElement("textarea")
         value_.value= elements[e];
+        value_.className = "form-control"
+        value_.style = "resize : horizontal;width:150px;"
+        // value.className = "form-group shadow-textarea"
         value.appendChild(value_);
 
         tr.appendChild(name);
@@ -242,8 +249,8 @@ chrome.storage.local.get(null,function(elements){
             var img = document.createElement("td");
             var img_ = document.createElement("img");
             img_.src= value_.value;
-            img_.height="70";
-            img_.width="70";
+            img_.height="90";
+            img_.width="90";
             img.appendChild(img_)
             tr.appendChild(img)
         } else if (value_.value.startsWith("https://youtu.be")){
@@ -251,8 +258,8 @@ chrome.storage.local.get(null,function(elements){
             var youtube = document.createElement("iframe");
             var src = "https://www.youtube.com/embed/"+value_.value.split("youtu.be/")[1]
             youtube.src= src
-            youtube.height="70";
-            youtube.width="70";
+            youtube.height="90";
+            youtube.width="90";
             td.appendChild(youtube);
             tr.appendChild(td)
 
