@@ -37,6 +37,8 @@ You can load clipboard after restarting your chrome browser.
 
 ## Shortcut
 
+> To show the clipboard
+
 For Windows,
 
 Ctrl + Shift + F
@@ -44,3 +46,13 @@ Ctrl + Shift + F
 For Mac,
 
 MacCtrl + Shift + F
+
+> To paste in browser directly
+
+For Windows,
+
+Ctrl + Shift + V
+
+For Mac,
+
+Command + Shift + V
