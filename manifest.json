@@ -1,6 +1,6 @@
 {
-  "name": "clipboard extension",
-  "description" : "It's made for controlling clipboard in chrome browser",
+  "name": "clipboarder",
+  "description" : "It's made for controlling clipboards in chrome browser",
   "version": "1.1",
   "browser_action": {
     "default_popup": "copy_extension.html",
@@ -27,7 +27,7 @@
         "default": "Ctrl+Shift+F",
         "mac": "MacCtrl+Shift+F"
       },
-      "description": "Opens Clipboards"
+      "description": "Opens Clipboards,clipboarder, clipboard extension"
     }
   }
 }
