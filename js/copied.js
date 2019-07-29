@@ -107,26 +107,60 @@ function pasteCallback(imageDataBase64){
         tr.appendChild(name);
         tr.appendChild(value);
         
+        var td = document.createElement("td");
+
         if (value_.value.startsWith("data:image/")){
-            var img = document.createElement("td");
             var img_ = document.createElement("img");
             img_.src= value_.value;
-            img_.height="90";
-            img_.width="90";
-            img.appendChild(img_)
-            tr.appendChild(img)
+            img_.height="100";
+            img_.width="100";
+            td.appendChild(img_)
         } else if (value_.value.startsWith("https://youtu.be")){
-            var td = document.createElement("td")
             var youtube = document.createElement("iframe");
             var src = "https://www.youtube.com/embed/"+value_.value.split("youtu.be/")[1]
             youtube.src= src
-            youtube.height="90";
-            youtube.width="90";
+            youtube.height="100";
+            youtube.width="100";
             td.appendChild(youtube);
-            tr.appendChild(td)
+           
 
         }
+        tr.appendChild(td)
 
+        var del = document.createElement("td");
+        var del_ = document.createElement("button");
+        del_.type= "button";
+        del_.className = "btn btn-danger";
+        del_.innerHTML = "delete"
+        del.appendChild(del_);
+        
+        var del = document.createElement("td");
+        var del_ = document.createElement("button");
+        del_.type= "button";
+        del_.className = "btn btn-danger";
+        del_.innerHTML = "delete"
+        del.appendChild(del_);
+        
+        $(del_).bind("click",function(e){
+            var parent = this.parentElement.parentElement
+            var removed = $('td:nth-child(1)',parent)[0]
+            var cellId = removed.innerText
+            if (removed.storageLocation == "sync"){
+                chrome.storage.sync.remove(cellId,function(e){
+                    parent.remove()
+                    toastr.warning("The Cell is removed");
+                })
+            }else{
+                chrome.storage.local.remove(cellId,function(e){
+                    parent.remove()
+                    toastr.warning("The Cell is removed");
+                })
+            }
+           
+            /* Alert the copied text */
+            
+        });
+        tr.appendChild(del);
 
         var items = document.getElementById("items");
         items.appendChild(tr);
@@ -136,20 +170,22 @@ function pasteCallback(imageDataBase64){
             if(chrome.runtime.lastError) {
                 
                 if (chrome.runtime.lastError.message == "QUOTA_BYTES_PER_ITEM quota exceeded"){
-                    toastr.error("Text is above the limit. It's not synced by browsers")
+                    toastr.warning("Text is above the limit. It's not synced by browsers")
+                    name.storageLocation= "local";
                 }
 
                 chrome.storage.local.set(store,function(err){
                     if (chrome.runtime.lastError){
 
                         if (chrome.runtime.lastError.message == "QUOTA_BYTES quota exceeded"){
-                            toastr.error("Text is above the limit. It's not saved in browser")
+                            toastr.warning("Text is above the limit. It's not saved in browser")
                         }
                     }
                 })
 
               } else {
-                  toastr.success("paste to clipboard")
+                  toastr.success("paste to clipboard");
+                  name.storageLocation= "sync";
               }
 
         });
@@ -167,6 +203,7 @@ chrome.storage.sync.get(null,function(elements){
     for (e in elements){
         var tr = document.createElement("tr");
         var name = document.createElement("td");
+        name.storageLocation= "sync";
         var name_ = document.createTextNode(e)
         name.appendChild(name_);
         var value = document.createElement("td");
@@ -193,26 +230,61 @@ chrome.storage.sync.get(null,function(elements){
         tr.appendChild(name);
         tr.appendChild(value);
         
+        var td = document.createElement("td");
+
         if (value_.value.startsWith("data:image/")){
-            var img = document.createElement("td");
             var img_ = document.createElement("img");
             img_.src= value_.value;
-            img_.height="90";
-            img_.width="90";
-            img.appendChild(img_)
-            tr.appendChild(img)
+            img_.height="100";
+            img_.width="100";
+            td.appendChild(img_)
         } else if (value_.value.startsWith("https://youtu.be")){
-            var td = document.createElement("td")
             var youtube = document.createElement("iframe");
             var src = "https://www.youtube.com/embed/"+value_.value.split("youtu.be/")[1]
             youtube.src= src
-            youtube.height="90";
-            youtube.width="90";
+            youtube.height="100";
+            youtube.width="100";
             td.appendChild(youtube);
-            tr.appendChild(td)
+           
 
         }
+        tr.appendChild(td)
         
+        var del = document.createElement("td");
+        var del_ = document.createElement("button");
+        del_.type= "button";
+        del_.className = "btn btn-danger";
+        del_.innerHTML = "delete"
+        del.appendChild(del_);
+        
+        var del = document.createElement("td");
+        var del_ = document.createElement("button");
+        del_.type= "button";
+        del_.className = "btn btn-danger";
+        del_.innerHTML = "delete"
+        del.appendChild(del_);
+        
+        $(del_).bind("click",function(e){
+            var parent = this.parentElement.parentElement
+            var removed = $('td:nth-child(1)',parent)[0]
+            var cellId = removed.innerText
+            if (removed.storageLocation == "sync"){
+                chrome.storage.sync.remove(cellId,function(e){
+                    parent.remove()
+                    toastr.warning("The Cell is removed");
+                })
+            }else{
+                chrome.storage.local.remove(cellId,function(e){
+                    parent.remove()
+                    toastr.warning("The Cell is removed");
+                })
+            }
+           
+            /* Alert the copied text */
+            
+        });
+        tr.appendChild(del);
+
         var items = document.getElementById("items");
         items.appendChild(tr);
     }
@@ -226,6 +298,7 @@ chrome.storage.local.get(null,function(elements){
     for (e in elements){
         var tr = document.createElement("tr");
         var name = document.createElement("td");
+        name.storageLocation= "local";
         var name_ = document.createTextNode(e)
         name.appendChild(name_);
         var value = document.createElement("td");
@@ -252,26 +325,61 @@ chrome.storage.local.get(null,function(elements){
 
         tr.appendChild(name);
         tr.appendChild(value);
+        var td = document.createElement("td");
 
         if (value_.value.startsWith("data:image/")){
-            var img = document.createElement("td");
             var img_ = document.createElement("img");
             img_.src= value_.value;
-            img_.height="90";
-            img_.width="90";
-            img.appendChild(img_)
-            tr.appendChild(img)
+            img_.height="100";
+            img_.width="100";
+            td.appendChild(img_)
         } else if (value_.value.startsWith("https://youtu.be")){
-            var td = document.createElement("td")
             var youtube = document.createElement("iframe");
             var src = "https://www.youtube.com/embed/"+value_.value.split("youtu.be/")[1]
             youtube.src= src
-            youtube.height="90";
-            youtube.width="90";
+            youtube.height="100";
+            youtube.width="100";
             td.appendChild(youtube);
-            tr.appendChild(td)
+           
 
         }
+        tr.appendChild(td)
+
+        var del = document.createElement("td");
+        var del_ = document.createElement("button");
+        del_.type= "button";
+        del_.className = "btn btn-danger";
+        del_.innerHTML = "delete"
+        del.appendChild(del_);
+        
+        var del = document.createElement("td");
+        var del_ = document.createElement("button");
+        del_.type= "button";
+        del_.className = "btn btn-danger";
+        del_.innerHTML = "delete"
+        del.appendChild(del_);
+        
+        $(del_).bind("click",function(e){
+            var parent = this.parentElement.parentElement
+            var removed = $('td:nth-child(1)',parent)[0]
+            var cellId = removed.innerText
+            if (removed.storageLocation == "sync"){
+                chrome.storage.sync.remove(cellId,function(e){
+                    parent.remove()
+                    toastr.warning("The Cell is removed");
+                })
+            }else{
+                chrome.storage.local.remove(cellId,function(e){
+                    parent.remove()
+                    toastr.warning("The Cell is removed");
+                })
+            }
+           
+            /* Alert the copied text */
+            
+        });
+        tr.appendChild(del);
+
         var items = document.getElementById("items");
         items.appendChild(tr);
     }
