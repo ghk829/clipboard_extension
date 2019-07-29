@@ -1,10 +1,10 @@
-# clipboard_extension
+# clipboarder
 
 clipboard app for chrome extension
 
-The Clipboard is sync in google account.
+Clipboarder is sync in google account.
 
-You can load clipboard after restarting your chrome browser.
+You can load clipboard even you restart your chrome browser.
 
 
 ## Overview
@@ -37,6 +37,8 @@ You can load clipboard after restarting your chrome browser.
 
 ## Shortcut
 
+> To show the clipboard
+
 For Windows,
 
 Ctrl + Shift + F
@@ -44,3 +46,13 @@ Ctrl + Shift + F
 For Mac,
 
 MacCtrl + Shift + F
+
+> To paste in browser directly
+
+For Windows,
+
+Ctrl + Shift + V
+
+For Mac,
+
+Command + Shift + V
