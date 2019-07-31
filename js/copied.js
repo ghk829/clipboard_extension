@@ -292,96 +292,98 @@ chrome.storage.sync.get(null,function(elements){
 })
 
 
+async function getLocalStorage(){
+    chrome.storage.local.get(null,function(elements){
 
-chrome.storage.local.get(null,function(elements){
-
-    for (e in elements){
-        var tr = document.createElement("tr");
-        var name = document.createElement("td");
-        name.storageLocation= "local";
-        var name_ = document.createTextNode(e)
-        name.appendChild(name_);
-        var value = document.createElement("td");
-        var button = document.createElement("button");
-        button.type= "button";
-        button.className = "btn btn-primary";
-        button.innerHTML = "copy"
-        $(button).bind("click",function(e){
-            var input = $(this).next()[0]
-            input.select();
-            document.execCommand("copy");
-            /* Alert the copied text */
-            toastr.info("Copied the text");
-        });
-
-        value.appendChild(button);
-        var value_ = document.createElement("textarea")
-        value_.value= elements[e];
-        value_.className = "form-control"
-        value_.style = "resize : horizontal;width:150px;"
-        value_.readOnly = true;
-        // value.className = "form-group shadow-textarea"
-        value.appendChild(value_);
-
-        tr.appendChild(name);
-        tr.appendChild(value);
-        var td = document.createElement("td");
-
-        if (value_.value.startsWith("data:image/")){
-            var img_ = document.createElement("img");
-            img_.src= value_.value;
-            img_.height="100";
-            img_.width="100";
-            td.appendChild(img_)
-        } else if (value_.value.startsWith("https://youtu.be")){
-            var youtube = document.createElement("iframe");
-            var src = "https://www.youtube.com/embed/"+value_.value.split("youtu.be/")[1]
-            youtube.src= src
-            youtube.height="100";
-            youtube.width="100";
-            td.appendChild(youtube);
-           
-
-        }
-        tr.appendChild(td)
-
-        var del = document.createElement("td");
-        var del_ = document.createElement("button");
-        del_.type= "button";
-        del_.className = "btn btn-danger";
-        del_.innerHTML = "delete"
-        del.appendChild(del_);
-        
-        var del = document.createElement("td");
-        var del_ = document.createElement("button");
-        del_.type= "button";
-        del_.className = "btn btn-danger";
-        del_.innerHTML = "delete"
-        del.appendChild(del_);
-        
-        $(del_).bind("click",function(e){
-            var parent = this.parentElement.parentElement
-            var removed = $('td:nth-child(1)',parent)[0]
-            var cellId = removed.innerText
-            if (removed.storageLocation == "sync"){
-                chrome.storage.sync.remove(cellId,function(e){
-                    parent.remove()
-                    toastr.warning("The Cell is removed");
-                })
-            }else{
-                chrome.storage.local.remove(cellId,function(e){
-                    parent.remove()
-                    toastr.warning("The Cell is removed");
-                })
+        for (e in elements){
+            var tr = document.createElement("tr");
+            var name = document.createElement("td");
+            name.storageLocation= "local";
+            var name_ = document.createTextNode(e)
+            name.appendChild(name_);
+            var value = document.createElement("td");
+            var button = document.createElement("button");
+            button.type= "button";
+            button.className = "btn btn-primary";
+            button.innerHTML = "copy"
+            $(button).bind("click",function(e){
+                var input = $(this).next()[0]
+                input.select();
+                document.execCommand("copy");
+                /* Alert the copied text */
+                toastr.info("Copied the text");
+            });
+    
+            value.appendChild(button);
+            var value_ = document.createElement("textarea")
+            value_.value= elements[e];
+            value_.className = "form-control"
+            value_.style = "resize : horizontal;width:150px;"
+            value_.readOnly = true;
+            // value.className = "form-group shadow-textarea"
+            value.appendChild(value_);
+    
+            tr.appendChild(name);
+            tr.appendChild(value);
+            var td = document.createElement("td");
+    
+            if (value_.value.startsWith("data:image/")){
+                var img_ = document.createElement("img");
+                img_.src= value_.value;
+                img_.height="100";
+                img_.width="100";
+                td.appendChild(img_)
+            } else if (value_.value.startsWith("https://youtu.be")){
+                var youtube = document.createElement("iframe");
+                var src = "https://www.youtube.com/embed/"+value_.value.split("youtu.be/")[1]
+                youtube.src= src
+                youtube.height="100";
+                youtube.width="100";
+                td.appendChild(youtube);
+               
+    
             }
-           
-            /* Alert the copied text */
+            tr.appendChild(td)
+    
+            var del = document.createElement("td");
+            var del_ = document.createElement("button");
+            del_.type= "button";
+            del_.className = "btn btn-danger";
+            del_.innerHTML = "delete"
+            del.appendChild(del_);
             
-        });
-        tr.appendChild(del);
-
-        var items = document.getElementById("items");
-        items.appendChild(tr);
-    }
-
-})
+            var del = document.createElement("td");
+            var del_ = document.createElement("button");
+            del_.type= "button";
+            del_.className = "btn btn-danger";
+            del_.innerHTML = "delete"
+            del.appendChild(del_);
+            
+            $(del_).bind("click",function(e){
+                var parent = this.parentElement.parentElement
+                var removed = $('td:nth-child(1)',parent)[0]
+                var cellId = removed.innerText
+                if (removed.storageLocation == "sync"){
+                    chrome.storage.sync.remove(cellId,function(e){
+                        parent.remove()
+                        toastr.warning("The Cell is removed");
+                    })
+                }else{
+                    chrome.storage.local.remove(cellId,function(e){
+                        parent.remove()
+                        toastr.warning("The Cell is removed");
+                    })
+                }
+               
+                /* Alert the copied text */
+                
+            });
+            tr.appendChild(del);
+    
+            var items = document.getElementById("items");
+            items.appendChild(tr);
+        }
+    
+    })
+}
+getLocalStorage();
