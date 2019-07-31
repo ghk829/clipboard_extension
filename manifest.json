@@ -1,7 +1,7 @@
 {
   "name": "clipboarder",
-  "description" : "It's made for controlling clipboards in chrome browser",
-  "version": "1.2",
+  "description" : "the best app for managing clipboard",
+  "version": "1.3",
   "browser_action": {
     "default_popup": "copy_extension.html",
     "default_icon": "Icon-128.png"
@@ -30,12 +30,12 @@
   },
   "manifest_version": 2,
   "commands": {
-    "toggle-feature-foo": {
+    "paste-to-clipboard": {
       "suggested_key": {
         "default": "Ctrl+Shift+V",
         "mac": "Command+Shift+V"
       },
-      "description": "Toggle feature foo"
+      "description": "paste to clipboard"
     },
     "_execute_browser_action": {
       "suggested_key": {
