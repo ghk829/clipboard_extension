@@ -14,7 +14,7 @@ function pop(obj) {
       // If the property can't be deleted fail with an error.
       if (!delete obj[key]) { throw new Error(); }
       return key;
-    } 
+    }
   }
 let ELEMENTS = {};
 
@@ -25,7 +25,7 @@ self.onmessage = function( post) {
             (function(index) {
                 setTimeout(function(){
                     postMessage(array[index])
-                }, 1000*(i));
+                }, 1500*(i));
             })(i);
         }
 };

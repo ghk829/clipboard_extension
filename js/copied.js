@@ -1,8 +1,8 @@
 /**
  * This handler retrieves the images from the clipboard as a base64 string and returns it in a callback.
- * 
- * @param pasteEvent 
- * @param callback 
+ *
+ * @param pasteEvent
+ * @param callback
  */
 
 toastr.options.positionClass = "toast-bottom-right"
@@ -41,7 +41,7 @@ function retrieveImageFromClipboardAsBase64(pasteEvent, callback, imageFormat){
         // Create an abstract canvas and get context
         var mycanvas = document.createElement("canvas");
         var ctx = mycanvas.getContext('2d');
-        
+
         // Create an image
         var img = new Image();
 
@@ -103,10 +103,10 @@ function pasteCallback(imageDataBase64){
         value_.style = "resize : horizontal;width:150px;"
         value_.readOnly = true;
         value.appendChild(value_);
-        
+
         tr.appendChild(name);
         tr.appendChild(value);
-        
+
         var td = document.createElement("td");
 
         if (value_.value.startsWith("data:image/")){
@@ -122,7 +122,7 @@ function pasteCallback(imageDataBase64){
             youtube.height="100";
             youtube.width="100";
             td.appendChild(youtube);
-           
+
 
         }
         tr.appendChild(td)
@@ -133,14 +133,14 @@ function pasteCallback(imageDataBase64){
         del_.className = "btn btn-danger";
         del_.innerHTML = "delete"
         del.appendChild(del_);
-        
+
         var del = document.createElement("td");
         var del_ = document.createElement("button");
         del_.type= "button";
         del_.className = "btn btn-danger";
         del_.innerHTML = "delete"
         del.appendChild(del_);
-        
+
         $(del_).bind("click",function(e){
             var parent = this.parentElement.parentElement
             var removed = $('td:nth-child(1)',parent)[0]
@@ -156,9 +156,9 @@ function pasteCallback(imageDataBase64){
                     toastr.warning("The Cell is removed");
                 })
             }
-           
+
             /* Alert the copied text */
-            
+
         });
         tr.appendChild(del);
 
@@ -168,7 +168,7 @@ function pasteCallback(imageDataBase64){
         store[key] = imageDataBase64;
         chrome.storage.sync.set(store, function(err) {
             if(chrome.runtime.lastError) {
-                
+
                 if (chrome.runtime.lastError.message == "QUOTA_BYTES_PER_ITEM quota exceeded"){
                     toastr.warning("Text is above the limit. It's not synced by browsers")
                     name.storageLocation= "local";
@@ -199,7 +199,7 @@ window.addEventListener("paste", function(e){
 
 
 
-     
+async function getSyncItems(){
 chrome.storage.sync.get(null,function(elements){
 
     for (e in elements){
@@ -231,7 +231,7 @@ chrome.storage.sync.get(null,function(elements){
 
         tr.appendChild(name);
         tr.appendChild(value);
-        
+
         var td = document.createElement("td");
 
         if (value_.value.startsWith("data:image/")){
@@ -247,25 +247,25 @@ chrome.storage.sync.get(null,function(elements){
             youtube.height="100";
             youtube.width="100";
             td.appendChild(youtube);
-           
+
 
         }
         tr.appendChild(td)
-        
+
         var del = document.createElement("td");
         var del_ = document.createElement("button");
         del_.type= "button";
         del_.className = "btn btn-danger";
         del_.innerHTML = "delete"
         del.appendChild(del_);
-        
+
         var del = document.createElement("td");
         var del_ = document.createElement("button");
         del_.type= "button";
         del_.className = "btn btn-danger";
         del_.innerHTML = "delete"
         del.appendChild(del_);
-        
+
         $(del_).bind("click",function(e){
             var parent = this.parentElement.parentElement
             var removed = $('td:nth-child(1)',parent)[0]
@@ -281,9 +281,9 @@ chrome.storage.sync.get(null,function(elements){
                     toastr.warning("The Cell is removed");
                 })
             }
-           
+
             /* Alert the copied text */
-            
+
         });
         tr.appendChild(del);
 
@@ -292,6 +292,8 @@ chrome.storage.sync.get(null,function(elements){
     }
 
 })
+
+}
 async function getLocalItems(e,elements){
     var tr = document.createElement("tr");
     var name = document.createElement("td");
@@ -330,7 +332,7 @@ async function getLocalItems(e,elements){
         img_.src= value_.value;
         img_.height="100";
         img_.width="100";
-        
+
     } else if (value_.value.startsWith("https://youtu.be")){
         var youtube = document.createElement("iframe");
         var src = "https://www.youtube.com/embed/"+value_.value.split("youtu.be/")[1]
@@ -338,7 +340,7 @@ async function getLocalItems(e,elements){
         youtube.height="100";
         youtube.width="100";
         td.appendChild(youtube);
-       
+
 
     }
     tr.appendChild(td)
@@ -349,14 +351,14 @@ async function getLocalItems(e,elements){
     del_.className = "btn btn-danger";
     del_.innerHTML = "delete"
     del.appendChild(del_);
-    
+
     var del = document.createElement("td");
     var del_ = document.createElement("button");
     del_.type= "button";
     del_.className = "btn btn-danger";
     del_.innerHTML = "delete"
     del.appendChild(del_);
-    
+
     $(del_).bind("click",function(e){
         var parent = this.parentElement.parentElement
         var removed = $('td:nth-child(1)',parent)[0]
@@ -372,12 +374,12 @@ async function getLocalItems(e,elements){
                 toastr.warning("The Cell is removed");
             })
         }
-       
+
         /* Alert the copied text */
-        
+
     });
     tr.appendChild(del);
-    
+
     var items = document.getElementById("items");
     items.appendChild(tr);
 
@@ -405,6 +407,7 @@ async function getLocalStorage(){
         }
     })
 }
-
-getLocalStorage()
-
+setTimeout(function(){
+	getSyncItems();
+	getLocalStorage()
+},100)
